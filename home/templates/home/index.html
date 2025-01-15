@@ -1,0 +1,593 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<meta name="description" 
+content="Profesionali šunų kirpykla – „Jūsų Letena“.
+Teikiame šunų kirpimo, džiovinimo ir maisto konsultavimo paslaugas."
+> 
+<meta name="keywords" content="šunų kirpykla, šunų kirpimas, šunų džiovinimas, šunų priežiūra,
+šunų kailio kirpimas, šunų maisto konsultavimas, šunų groomingas, šunų priežiūros paslaugos, profesionali šunų kirpykla,
+Jūsų Letena, šunų šukuosenos, šunų higiena, šunų priežiūros patarimai, šunų kirpimo salonas, šunų kailio priežiūra, šunų maisto rekomendacijos,
+šunų sveikata, šunų plaukų kirpimas, šunų priežiūros specialistas, geriausia šunų kirpykla, šunų groomeris, šunų plaukų džiovinimas,
+augintinių priežiūra, šunų grožio salonas, mažų veislių šunų kirpimas, didelių veislių šunų kirpimas, šunų kirpimo paslaugos, šunų kailio šukuosenos,
+špicų kirpimas, pūdėlių kirpimas" >
+
+<meta name="author" content="Jūsų letena">
+  
+    <!-- slider section -->
+    <section class="slider_section">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-5 offset-md-1">
+                    <div class="detail-box">
+                      <div class="number">
+                        <h5>
+                          01
+                        </h5>
+                      </div>
+                      <h1>
+                        Jūsų letena <br>
+                        <span>
+                          Augintinis ir Šeima
+                        </span>
+                      </h1>
+                      {% for carousel in carousel %}
+                      <p>
+                        {{ carousel.textbox1 }}
+                      </p>
+                      <div class="btn-box">
+                        <a href="{% url 'register' %}" class="btn-1">
+                          Registruotis
+                        </a>
+                        <!-- <a href="#contact" class="btn-2">
+                          Kontaktai
+                        </a> -->
+                        <a href="javascript:void(0);" class="btn-2" data-target="#contact">Kontaktai</a> <!-- Updated link -->
+                        {% if messages %}
+                        <div class="messages" id="message-container">
+                          {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                              {{ message }}
+                            </div>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="img-box">
+                      <img src="{{ carousel.photo1.url }}" alt="špicas po kirpimo">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-5 offset-md-1">
+                    <div class="detail-box">
+                      <div class="number">
+                        <h5>
+                          02
+                        </h5>
+                      </div>
+                      <h1>
+                        Jūsų letena <br>
+                        <span>
+                          Augintinis ir Šeima
+                        </span>
+                      </h1>
+                      <p>
+                        {{ carousel.textbox2 }}
+                      </p>
+                      <div class="btn-box">
+                        <a href="{% url 'register' %}" class="btn-1">
+                          Registruotis
+                        </a>
+                        <a href="javascript:void(0);" class="btn-2" data-target="#contact" class="btn-2">
+                          Kontaktai
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="img-box">
+                      <img src="{{ carousel.photo2.url }}" alt="Šuo po kirpimo">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-5 offset-md-1">
+                    <div class="detail-box">
+                      <div class="number">
+                        <h5>
+                          03
+                        </h5>
+                      </div>
+                      <h1>
+                        Jūsų letena <br>
+                        <span>
+                          Augintinis ir Šeima
+                        </span>
+                      </h1>
+                      <p>
+                        {{ carousel.textbox3 }}
+                      </p>
+                      <div class="btn-box">
+                        <a href="{% url 'register' %}" class="btn-1">
+                          Registruotis
+                        </a>
+                        <a href="javascript:void(0);" class="btn-2" data-target="#contact" class="btn-2">
+                          Kontaktai
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="img-box">
+                      <img src="{{ carousel.photo3.url }}" alt="šuo paruoštas parodai">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-5 offset-md-1">
+                    <div class="detail-box">
+                      <div class="number">
+                        <h5>
+                          04
+                        </h5>
+                      </div>
+                      <h1>
+                        Jūsų letena <br>
+                        <span>
+                          Augintinis ir Šeima
+                        </span>
+                      </h1>
+                      <p>
+                        {{ carousel.textbox4 }}
+                      </p>
+                      <div class="btn-box">
+                        <a href="{% url 'register' %}" class="btn-1">
+                          Registruotis
+                        </a>
+                        <a href="javascript:void(0);" class="btn-2" data-target="#contact" class="btn-2">
+                          Kontaktai
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="img-box">
+                      <img src="{{ carousel.photo4.url }}" alt="šuniukas po kirpimo">
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </section>
+      <!-- end slider section -->
+    </div>
+  
+    <!-- about section -->
+  
+    <section class="about_section layout_padding">
+      <div class="container">
+        <div class="detail-box">
+          <div class="heading_container">
+            <img src="{% static 'images/heading-img.png' %}" alt="šuo po džiovinimo">
+            <h2>
+              Apie mus
+            </h2>
+          </div>
+          {% if about %}
+          {% for about in about %}
+          <p>
+            {{ about.intro_text }}
+          </p>
+          {% endfor %}
+          {% else %}
+          <p>
+            Svetainė pildoma
+          </p>
+          {% endif %}
+          <div class="btn-box">
+            <a href="{% url 'about' %}">
+              <span>
+                Skaityti Daugiau
+              </span>
+              <img src="{% static 'images/link-arrow.png' %}" alt="Šuo po džiovinimo">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    <!-- end about section -->
+  
+    <!-- animal section -->
+  
+    <section class="animal_section layout_padding">
+      <div class="container">
+        <div class="animal_container">
+        {% for client in client %}
+          <div class="box b1">
+            <div class="img-box">
+              <img src="{{ client.client_image1.url }}" alt="Nupraustas šuniukas">
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{ client.client_name1 }}
+              </h5>
+              <p>
+                {{ client.client_intro1 }}
+              </p>
+            </div>
+          </div>
+          <div class="box b2">
+            <div class="img-box">
+              <img src="{{ client.client_image2.url }}" alt="nupraustas šuniukas">
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{ client.client_name2 }}
+              </h5>
+              <p>
+                {{ client.client_intro2 }}
+              </p>
+            </div>
+          </div>
+          <div class="box b1">
+            <div class="img-box">
+              <img src="{{ client.client_image3.url }}" alt="prausiamas šuniukas">
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{ client.client_name3 }}
+              </h5>
+              <p>
+                {{ client.client_intro3 }}
+              </p>
+            </div>
+          </div>
+          <div class="box b2">
+            <div class="img-box">
+              <img src="{{ client.client_image4.url }}" alt="prausiamas šuo">
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{ client.client_name4 }}
+              </h5>
+              <p>
+                {{ client.client_intro4 }}
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  
+    <!-- end animal section -->
+  
+    <!-- pet section -->
+  
+    <section class="pet_section layout_padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="img-box">
+              <img src="{% static 'images/pet-img.png' %}" alt="laimingas šuo">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-box">
+              <div class="heading_container">
+                <img src="{% static 'images/heading-img.png' %}" alt="laimingas šuo">
+                <h2>
+                  Rūpestis jūsų gyvunų
+                </h2>
+              </div>
+              <p>
+                Reguliarus plovimas padeda atnaujinti kailį bei suteikia jam žvilgesio ir atspindžio.
+              </p>
+              <!-- <div class="btn-box">
+                <a href="">
+                  <span>
+                    Skaityti Daugiau
+                  </span>
+                  <img src="images/link-arrow.png" alt="">
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- end pet section -->
+  
+    <!-- us section -->
+  
+    <section class="us_section layout_padding-bottom">
+      <div class="container">
+        <div class="heading_container">
+          <img src="{% static 'images/heading-img.png' %}" alt="mūsų paslaugos">
+          <h2>
+            Kodėl rinktis mus?
+          </h2>
+          <p>
+            Užtikriname viso proceso atlikimą nuo išmaudymo iki džiovinimo
+          </p>
+        </div>
+        <div class="us_container">
+          <div class="box">
+            <div class="img1-box">
+              <img src="{% static 'images/pet1.png' %}" alt="buldogas">
+            </div>
+            <div class="img2-box">
+              <img src="{% static 'images/omega.png' %}" alt="šunų maistas">
+            </div>
+            <div class="detail-box">
+              <h6>
+                Maisto konsultacija
+              </h6>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img1-box">
+              <img src="{% static 'images/pet2.png' %}" alt="Šuo">
+            </div>
+            <div class="img2-box">
+              <img src="{% static 'images/dog.png' %}" alt="priežiūros patarimai">
+            </div>
+            <div class="detail-box">
+              <h6>
+                Priežiūros patarimai
+              </h6>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img1-box">
+              <img src="{% static 'images/pet2.png' %}" alt="garantija">
+            </div>
+            <div class="img2-box">
+              <img src="{% static 'images/shield.png' %}" alt="meistriškumas">
+            </div>
+            <div class="detail-box">
+              <h6>
+                Kokybė ir meistriškumas
+              </h6>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="btn-box">
+          <a href="">
+            <span>
+              Skaityti daugiau
+            </span>
+            <img src="images/link-arrow.png" alt="">
+          </a>
+        </div> -->
+      </div>
+    </section>
+  
+    <!-- end us section -->
+  
+    <!-- food section -->
+  
+    <!-- <section class="food_section layout_padding">
+      <div class="container">
+        <div class="heading_container">
+          <img src="images/heading-img.png" alt="">
+          <h2>
+            Our Dog Food
+          </h2>
+          <p>
+            It is a long established fact that a reader will be distracted by the readable content of a
+          </p>
+        </div>
+        <div class="food_container">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/f1.png" alt="">
+            </div>
+            <div class="detail-box">
+              <h6>
+                Basic
+              </h6>
+              <h3>
+                <span>$</span>100
+              </h3>
+              <a href="">
+                Buy Now
+              </a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box">
+              <img src="images/f2.png" alt="">
+            </div>
+            <div class="detail-box">
+              <h6>
+                Medium
+              </h6>
+              <h3>
+                <span>$</span>200
+              </h3>
+              <a href="">
+                Buy Now
+              </a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box">
+              <img src="images/f3.png" alt="">
+            </div>
+            <div class="detail-box">
+              <h6>
+                Standard
+              </h6>
+              <h3>
+                <span>$</span>300
+              </h3>
+              <a href="">
+                Buy Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+  
+  
+    <!-- end food section -->
+  
+    <!-- client section -->
+  
+    <section class="client_section layout_padding">
+      <div class="container">
+        <div class="heading_container">
+          <img src="{% static 'images/heading-img.png' %}" alt="mūsų klientai">
+          <h2>
+            Ką apie mus sako klientai?
+          </h2>
+        </div>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            {% for review in review %}
+            <div class="carousel-item {% if forloop.first %} active {%endif %}">
+              <div class="box">
+                <!-- <div class="img-box"></div>
+                  <img src="{% static 'images/client.png' %}" alt="">
+                </div> -->
+                <div class="detail-box">
+                  <h4>
+                    {{ review.name }}
+                  </h4>
+                  <p>
+                    {{ review.rate }}
+                  </p>
+                  <img src="{% static 'images/quote.png' %}" alt="atsiliepimai">
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="carousel_btn-box">
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- end client section -->
+  
+    <!-- contact section -->
+  
+    <section class="contact_section layout_padding-top" id="contact">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-5 offset-md-1">
+            <div class="form_container">
+              <div class="heading_container">
+                <img src="{% static 'images/heading-img.png' %}" alt="susisiekite">
+                <h2>
+                  Iškilo klausimų?
+                </h2>
+              </div>
+              <form method="POST"  action="{% url 'submit_message' %}">
+                {% csrf_token %}
+                <div>
+                  <input type="text" name="name" placeholder="Vardas" required />
+                </div>
+                <div>
+                  <input type="text" name="phone" placeholder="Telefono numeris" required/>
+                </div>
+                <div>
+                  <input type="text" name="email" placeholder="Paštas" required />
+                </div>
+                <div>
+                  <input type="text" name="message" class="message-box" placeholder="Žinutė" required />
+                </div>
+                <div class="d-flex ">
+                  <button type="submit">
+                    Siųsti
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6 px-0">
+            <div class="map_container">
+              <div class="map-responsive">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2294.230197239256!2d23.88384357770671!3d54.89888175743632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e723d27d809425%3A0x60216d8a30cc9d0d!2sTaboo!5e0!3m2!1sen!2slt!4v1725624236243!5m2!1sen!2slt" width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script>
+      function openNav() {
+        document.getElementById("myNav").classList.toggle("menu_width")
+        document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
+      }
+    </script>
+<script>
+  // Smooth scroll functionality without changing URL
+  $('a[data-target]').on('click', function(event) {
+    var target = $($(this).data('target'));
+    if (target.length) {
+      event.preventDefault();
+      $('html, body').stop().animate({
+        scrollTop: target.offset().top
+      }, 1000);
+    }
+  });
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var messageContainer = document.getElementById('message-container');
+    if (messageContainer) {
+      setTimeout(function() {
+        messageContainer.style.opacity = 0;
+        setTimeout(function() {
+          messageContainer.style.display = 'none';
+        }, 1000); // Wait for the fade-out transition to complete
+      }, 3000); // Wait for 3 seconds before starting the fade-out
+    }
+  });
+</script>
+     {% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block content%}
+{% load static %}
+<meta name="description" 
+content="Profesionali šunų kirpykla – „Jūsų Letena“.
+Teikiame šunų kirpimo, džiovinimo ir maisto konsultavimo paslaugas."
+> 
+<meta name="keywords" content="šunų kirpykla, šunų kirpimas, šunų džiovinimas, šunų priežiūra,
+šunų kailio kirpimas, šunų maisto konsultavimas, šunų groomingas, šunų priežiūros paslaugos, profesionali šunų kirpykla,
+Jūsų Letena, šunų šukuosenos, šunų higiena, šunų priežiūros patarimai, šunų kirpimo salonas, šunų kailio priežiūra, šunų maisto rekomendacijos,
+šunų sveikata, šunų plaukų kirpimas, šunų priežiūros specialistas, geriausia šunų kirpykla, šunų groomeris, šunų plaukų džiovinimas,
+augintinių priežiūra, šunų grožio salonas, mažų veislių šunų kirpimas, didelių veislių šunų kirpimas, šunų kirpimo paslaugos, šunų kailio šukuosenos,
+špicų kirpimas, pūdėlių kirpimas" >
+
+<meta name="author" content="Jūsų letena">
+  <!-- about section -->
+   <style>
+    
+    .hero_area::before {
+        background-image: none;
+    }
+
+    .custom_menu-btn button span {
+    background-color: black;
+}
+   </style>
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="detail-box">
+        <div class="heading_container">
+          <img src="{% static 'images/heading-img.png' %}" alt="">
+          <h2>
+            Apie mus
+          </h2>
+        </div>
+        {% for about_us in about_us %}
+        <p>
+          {{ about_us.text }}
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+  <!-- animal section -->
+<!-- price table section -->
+<section class="price_table_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <img src="{% static 'images/heading-img.png' %}" alt="kainos">
+      <h2>
+        Paslaugų kainos
+      </h2>
+    </div>
+    <div class="price_table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Paslauga</th>
+            <th>Mažiems šunims</th>
+            <th>Dideliems šunims</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for price_table in price_table %}
+          <tr>
+            <td>Šukavimas</td>
+            <td>€{{ price_table.combing1 }}</td>
+            <td>€{{ price_table.combing2 }}</td>
+          </tr>
+          <tr>
+            <td>Maudymas</td>
+            <td>€{{ price_table.showering1 }}</td>
+            <td>€{{ price_table.showering2 }}</td>
+          </tr>
+          <tr>
+            <td>Džiovinimas</td>
+            <td>€{{ price_table.drying1 }}</td>
+            <td>€{{ price_table.drying2 }}</td>
+          </tr>
+          <tr>
+            <td>Maisto konsultacija</td>
+            <td>€{{  price_table.consult1 }}</td>
+            <td>€{{ price_table.consult2 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- end price table section -->
+
+  <!-- us section -->
+
+  <section class="us_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container">
+        <img src="images/heading-img.png" alt="apie mus">
+        <h2>
+          Kodėl rinktis mus?
+        </h2>
+        <p>
+          Užtikriname viso proceso atlikimą nuo išmaudymo iki džiovinimo
+        </p>
+      </div>
+      <div class="us_container">
+        <div class="box">
+          <div class="img1-box">
+            <img src="{% static 'images/pet1.png' %}" alt="buldogas">
+          </div>
+          <div class="img2-box">
+            <img src="{% static 'images/omega.png' %}" alt="buldogas">
+          </div>
+          <div class="detail-box">
+            <h6>
+              Maisto konsultacija
+            </h6>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img1-box">
+            <img src="{% static 'images/pet2.png' %}" alt="priežiūros patarimai">
+          </div>
+          <div class="img2-box">
+            <img src="{% static 'images/dog.png' %}" alt="priežiūros patarimai">
+          </div>
+          <div class="detail-box">
+            <h6>
+              Priežiūros patarimai
+            </h6>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img1-box">
+            <img src="{% static 'images/pet2.png' %}" alt="garantija">
+          </div>
+          <div class="img2-box">
+            <img src="{% static 'images/shield.png' %}" alt="garantija">
+          </div>
+          <div class="detail-box">
+            <h6>
+              Kokybė ir meistriškumas
+            </h6>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="btn-box">
+        <a href="">
+          <span>
+            Skaityti daugiau
+          </span>
+          <img src="images/link-arrow.png" alt="">
+        </a>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- end us section -->
+{% endblock %}

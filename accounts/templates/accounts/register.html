@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .hero_area {
+        height: fit-content;
+    }
+</style>
+<section class="contact_section layout_padding-top">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-5 offset-md-1">
+          <div class="form_container">
+            <div class="heading_container">
+              <img src="{% static 'images/heading-img.png' %}" alt="">
+              <h2>
+                Registracijos forma
+              </h2>
+              <p>
+                Užsiregistruokite, kad gautumėte prieigą prie mūsų paslaugų
+              </p>
+            </div>
+            <form method="POST" action="{% url 'register' %}">
+              {% csrf_token %}
+              {% if messages %}
+                  <div class="messages" id="message-container">
+                      {% for message in messages %}
+                          <div class="alert alert-{{ message.tags }}">
+                              {{ message }}
+                          </div>
+                      {% endfor %}
+                  </div>
+              {% endif %}
+              <div>
+                  <input type="text" name="vardas" placeholder="Vardas" value="{{ vardas }}" required />
+              </div>
+              <div>
+                  <input type="text" name="pavarde" placeholder="Pavardė" value="{{ pavarde }}" required />
+              </div>
+              <div>
+                  <input type="text" name="prisijungimo_vardas" placeholder="Prisijungimo vardas" value="{{ prisijungimo_vardas }}" required />
+              </div>
+              <div>
+                  <input type="email" name="el_pastas" placeholder="El. paštas" value="{{ el_pastas }}" required />
+              </div>
+              <div>
+                  <input type="password" name="slaptazodis" placeholder="Slaptažodis" required />
+              </div>
+              <div>
+                  <img src="{{ captcha_image_url }}" alt="captcha" />
+                  <input type="hidden" name="captcha_key" value="{{ captcha_key }}">
+                  <input type="text" name="captcha_response" placeholder="Įveskite CAPTCHA" required />
+              </div>
+              <div class="d-flex ">
+                  <button type="submit">
+                      Registruotis
+                  </button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var messageContainer = document.getElementById('message-container');
+      if (messageContainer) {
+        setTimeout(function() {
+          messageContainer.style.opacity = 0;
+          setTimeout(function() {
+            messageContainer.style.display = 'none';
+          }, 1000); // Wait for the fade-out transition to complete
+        }, 3000); // Wait for 3 seconds before starting the fade-out
+      }
+    });
+  </script>
+{% endblock %}

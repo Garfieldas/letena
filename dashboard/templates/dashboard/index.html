@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Container settings for the order section */
+.orders_section {
+    padding: 20px;
+}
+
+.heading_container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.heading_container h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Table styling */
+.orders_table .table {
+    width: 100%; /* Ensures the table takes up the full width of its container */
+    table-layout: fixed; /* Ensures even column distribution */
+    border-collapse: collapse; /* Merges borders of table cells */
+}
+
+.orders_table .table th,
+.orders_table .table td {
+    width: 25%; /* Ensures even distribution of 4 columns, adjust if needed */
+    text-align: left;
+    vertical-align: middle;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    box-sizing: border-box; /* Ensures padding does not increase cell width */
+    background-color: #fff;
+}
+
+.orders_table .table th {
+    background-color: #f1f1f1; /* Light background for table header */
+    font-weight: bold;
+}
+
+.orders_table .table td {
+    background-color: #fff;
+}
+
+/* Button styling for order status */
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+/* Disabled button styles */
+.btn.disabled, .btn:disabled {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    /* Remove fixed width for table cells on small screens to allow better flexibility */
+    .orders_table .table th,
+    .orders_table .table td {
+        width: auto;
+        display: block;
+        text-align: left;
+    }
+
+    /* Ensure the table headers appear on top of each cell's value for better mobile readability */
+    .orders_table .table tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+    }
+
+    .orders_table .table th,
+    .orders_table .table td {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        text-align: left;
+    }
+}
+/* General section cleanup */
+.hero_area::before {
+  background-image: none;
+  content: none;
+}
+
+.custom_menu-btn button span {
+  background-color: black;
+}
+
+.info_section{
+  display: none;
+}
+
+.hero_area{
+  background-image: none;
+}
+
+</style>
+
+<!-- orders section -->
+<section class="orders_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <img src="{% static 'images/heading-img.png' %}" alt="">
+      <h2>
+        Jūsų užsakymai
+      </h2>
+    </div>
+
+    {% if user_orders %}
+    <div class="orders_table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Užsakymo numeris</th>
+            <th>Data</th>
+            <th>Laikas</th>
+            <th>Statusas</th>
+            <th>Atšaukti</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in user_orders %}
+          <tr>
+            <td data-label="Užsakymo numeris">{{ order.id|stringformat:"s"|slice:"-7:" }}</td>
+            <td data-label="Data">{{ order.day }}</td>
+            <td data-label="Laikas">{{ order.time }}</td>
+            <td data-label="Statusas">
+              {% if order.is_completed == False %}
+                Laukiame jūsų
+              {% else %}
+                Įvykdytas
+              {% endif %}
+            </td>
+            <td data-label="Atšaukti">
+              {% with current_datetime=now %}
+                  {% if order.day > today %}
+                      <a class="btn btn-danger" href="{% url 'delete' order.id %}">Atšaukti</a>
+                  {% elif order.day == today %}
+                      {% with twelve_hours_ahead=current_datetime|add:"12:00:00" %}
+                          {% if order.time >= twelve_hours_ahead|time:"H:i:s" %}
+                              <a class="btn btn-danger" href="{% url 'delete' order.id %}">Atšaukti</a>
+                          {% else %}
+                              <a class="btn btn-secondary" href="#" class="disabled" aria-disabled="true">Negalima</a>
+                          {% endif %}
+                      {% endwith %}
+                  {% else %}
+                      <a class="btn btn-secondary" href="#" class="disabled" aria-disabled="true">Užsakymas jau įvykdytas</a>
+                  {% endif %}
+              {% endwith %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-center">Nėra užsakymų, kuriuos galima rodyti.</p>
+    {% endif %}
+  </div>
+</section>
+<!-- end orders section -->
+
+{% endblock %}

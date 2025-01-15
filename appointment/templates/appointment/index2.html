@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+
+    <!-- Bootstrap for basic styling (optional) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* .info_section{
+            display: none;
+        } */
+        .fc-today-button {
+            display: none !important; /* Ensure it overrides other styles */
+        }
+        .hero_area {
+            height: 120vh;
+        }
+
+        .custom_menu-btn button span {
+            background-color: black;
+        }
+
+        .hero_area::before {
+            content: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 88%;
+            background-image: none;
+            background-size: cover;
+            background-position: left bottom;
+            background-repeat: no-repeat;
+        }
+        /* FullCalendar Styling */
+        .fc {
+            border: 1px solid #ddd; /* Light grey border for the calendar container */
+            background-color: #ffffff; /* White background for the calendar */
+        }
+
+        .fc-daygrid-day {
+            border: 1px solid #e0e0e0; /* Light grey border for day cells */
+            background-color: #ffffff; /* White background for day cells */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .fc-daygrid-day:hover {
+            background-color: #f0f0f0; /* Light grey background on hover */
+        }
+
+        .fc-daygrid-day.selected {
+            background-color: #28a745; /* Green color for selected day */
+            color: #ffffff; /* White text for better readability */
+        }
+
+        .fc-daygrid-day.fc-day-today {
+            border: 2px solid #007bff; /* Blue border for today's date */
+        }
+
+        .fc-toolbar-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #333; /* Dark text for header */
+        }
+
+        /* Form Styling */
+        .container {
+            /*background-color: #f9f9f9; /* Light grey background for the container */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow for a modern look */
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333; /* Dark text for labels */
+        }
+
+        .form-control {
+            border: 1px solid #ccc; /* Light grey border for input fields */
+            border-radius: 4px;
+            background-color: #ffffff; /* White background for input fields */
+        }
+
+        .form-control:focus {
+            border-color: #007bff; /* Blue border on focus */
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Blue shadow on focus */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Blue background for primary buttons */
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #004085;
+        }
+    </style>
+
+<div class="container">
+    <h1>Sukurti susitikimą</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }} <!-- Display non-field errors -->
+        <!-- Calendar Element -->
+        <div id="calendar"></div>
+        <!-- Hidden field to store the selected date -->
+        <input type="hidden" id="id_day" name="day">
+        
+        <!-- Time selection dropdown, initially hidden -->
+        <div id="time-selection" class="form-group" style="display: none;">
+            <label for="time">Pasirinkite laiką:</label>
+            <select id="time" name="time" class="form-control">
+                <option value="" disabled selected>Pasirinkite laiką</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+            </select>
+        </div>
+
+        <label for="{{ form.client_phone.id_for_label }}">Telefono numeris:</label>
+        {{ form.client_phone }}
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+    </form>
+</div>
+
+    <!-- Initialize FullCalendar -->
+     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', // Monthly view
+            selectable: true,
+            locale: 'lt', // Set the calendar locale to Lithuanian
+            dateClick: function(info) {
+                // Remove the 'selected' class from previously selected day
+                document.querySelectorAll('.fc-daygrid-day.selected').forEach(function(el) {
+                    el.classList.remove('selected');
+                });
+    
+                // Set the date in the hidden input
+                document.getElementById('id_day').value = info.dateStr;
+    
+                // Add 'selected' class to the clicked day
+                var clickedDay = document.querySelector(`.fc-daygrid-day[data-date="${info.dateStr}"]`);
+                if (clickedDay) {
+                    clickedDay.classList.add('selected');
+                }
+    
+                // Display the time selection dropdown
+                document.getElementById('time-selection').style.display = 'block';
+    
+                // Fetch booked times for the selected date using AJAX
+                $.ajax({
+                    url: '/appointment/get-booked-times/', // Endpoint to fetch booked times
+                    method: 'GET',
+                    data: {
+                        date: info.dateStr
+                    },
+                    success: function(response) {
+                        // Assuming response is a list of booked times, like ['08:00', '10:00']
+                        updateAvailableTimes(response);
+                    },
+                    error: function(error) {
+                        console.error('Error fetching booked times:', error);
+                    }
+                });
+            },
+            validRange: {
+                start: new Date() // Prevent selecting past dates
+            },
+            dayMaxEventRows: true,
+            hiddenDays: [0, 6] // Hide weekends (Sunday and Saturday)
+        });
+        calendar.render();
+    });
+    
+    // Function to update the available times dropdown based on booked times
+    function updateAvailableTimes(bookedTimes) {
+        var timeDropdown = document.getElementById('time');
+        var allTimes = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+    
+        // Clear all options in the dropdown
+        timeDropdown.innerHTML = '<option value="" disabled selected>Pasirinkite laiką</option>';
+    
+        // Loop through all times and add only the ones that are not booked
+        allTimes.forEach(function(time) {
+            if (!bookedTimes.includes(time)) {
+                var option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeDropdown.appendChild(option);
+            }
+        });
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Remove the "Today" button after FullCalendar has been rendered
+        var todayButton = document.querySelector('.fc-today-button');
+        if (todayButton) {
+            todayButton.remove();
+        }
+    });
+</script>
+{% endblock %}

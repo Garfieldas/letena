@@ -1,0 +1,55 @@
+{% load static %}
+<div class="hero_area ">
+<header class="header_section">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'foto/image_2024-09-05_213809844-removebg-preview.png' %}" alt="">
+        </a>
+        <div class="" id="">
+          <div class="User_option">
+            <form class="form-inline my-2  mb-3 mb-lg-0">
+              <input type="search" placeholder="Search">
+              <!-- <button class="btn   my-sm-0 nav_search-btn" type="submit"></button> -->
+            </form>
+          </div>
+
+          <div class="custom_menu-btn">
+            <button onclick="openNav()">
+              <span class="s-1">
+
+              </span>
+              <span class="s-2">
+
+              </span>
+              <span class="s-3">
+
+              </span>
+            </button>
+          </div>
+          <div id="myNav" class="overlay">
+            <div class="overlay-content">
+              {% if user.is_authenticated %}
+              <a href="{% url 'home' %}">Pagrindinis</a>
+              <a href="{% url 'about' %}">Apie mus</a>
+              <a href="{% url 'review' %}">Atsiliepimas</a>
+              <a href="{% url 'appointment' %}">Vizitas</a>
+              <a href="{% url 'dashboard' %}">Mano Vizitas</a>
+              <a id="logout"><a href="{% url 'logout' %}">Atsijungti</a>
+              {% else %}
+              <a href="{% url 'home' %}">Pagrindinis</a>
+              <a href="{% url 'about' %}">Apie mus</a>
+              <a href="{% url 'login' %}">Prisijungti</a></li>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <script>
+    function openNav() {
+      document.getElementById("myNav").classList.toggle("menu_width")
+      document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
+    }
+  </script>
