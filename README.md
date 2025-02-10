@@ -12,10 +12,10 @@
 - I hosted this project on pythonanywhere.com:
     https://dainiusr2.pythonanywhere.com/
 ## Features
+![App Preview](https://i.ibb.co/ymkN0MPn/Screenshot-2025-02-10-at-23-02-11.png)
 ![App Preview](https://i.ibb.co/YSMWX8F/Screenshot-2025-02-10-at-22-43-15.png)
 ![App Preview](https://i.ibb.co/nqhdvFHY/Screenshot-2025-02-10-at-22-43-08.png)
 ![App Preview](https://i.ibb.co/q394qJ5m/Screenshot-2025-02-10-at-22-42-53.png)
-![App Preview](https://i.ibb.co/5x52gqX9/Screenshot-2025-02-10-at-22-42-39.png)
 ## 🚀 Features
 - 🏠 **Home Page:** Overview of services and and other users feedback.
 - 📅 **Booking System:** Schedule a pet grooming appointment. Users can also cancel their registration and see the time they have chosen.
